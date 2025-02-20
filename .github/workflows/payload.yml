@@ -1,18 +1,14 @@
 name: rockos-uboot-payload
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 2 * * *"
+  workflow_dispatch: {}
 
 env:
   mainline_toolchain: https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.11.22
   mainline_toolchain_file_name: riscv64-glibc-ubuntu-22.04-gcc-nightly-2024.11.22-nightly.tar.xz
   wget_alias: 'wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0'
   ARCH: riscv
-  uboot_branch: rockos-dev
+  uboot_branch: rockos-dev-milkv
   CROSS_COMPILE: riscv64-unknown-linux-gnu-
 
 jobs:
@@ -62,7 +58,7 @@ jobs:
       - name: Checkout rockos-u-boot
         uses: actions/checkout@v4
         with:
-          repository: rockos-riscv/rockos-u-boot
+          repository: carbonfix/rockos-u-boot
           ref: ${{ env.uboot_branch }}
           path: uboot
 
